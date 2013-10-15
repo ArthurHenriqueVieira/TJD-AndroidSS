@@ -1,5 +1,12 @@
 package com.example.tyriangame;
 
-public class Ranking {
+import android.app.Activity;
+import android.os.Bundle;
+
+public class Ranking extends Activity {
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_ranking);
+	}
 
 }
