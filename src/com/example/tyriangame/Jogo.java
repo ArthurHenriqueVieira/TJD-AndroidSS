@@ -49,8 +49,8 @@ public class Jogo extends Activity implements SensorEventListener {
 	public void onSensorChanged(SensorEvent event) {
 		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
 			synchronized(jogador) {
-				float x = event.values[0];
-				float y = event.values[1];
+				float x = jogador.getCoordinates().getX() + (event.values[0]*-1);
+				float y = jogador.getCoordinates().getY() + (event.values[1]);
 				jogador.getCoordinates().setX(x);
 				jogador.getCoordinates().setY(y);
 			}
