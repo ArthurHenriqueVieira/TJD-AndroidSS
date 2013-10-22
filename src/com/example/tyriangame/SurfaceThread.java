@@ -1,6 +1,5 @@
 package com.example.tyriangame;
 
-import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
@@ -22,7 +21,6 @@ class SurfaceThread extends Thread {
 		_run = run;
 	}
 
-	@SuppressLint("WrongCall")
 	@Override
 	public void run() {
 		Canvas c;

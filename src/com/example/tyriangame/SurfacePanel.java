@@ -1,17 +1,14 @@
 package com.example.tyriangame;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback {
+	static NaveJogador _jogador;
 	private SurfaceThread _thread;
-	private NaveJogador jogador = new NaveJogador(BitmapFactory.decodeResource(getResources(),
-			R.drawable.nave));
 
 	public SurfacePanel(Context context) {
 		super(context);
@@ -19,18 +16,15 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 		_thread = new SurfaceThread(getHolder(), this);
 		setFocusable(true);
 	}
-
+	
 	@Override
 	public void onDraw(Canvas canvas) {
-		canvas.drawColor(Color.BLACK);
-		Bitmap bitmap;
-		Coordinates coords;
-		
+		canvas.drawColor(Color.BLACK);		
 		
 		//Desenha a nave jogador
-		bitmap = jogador.getGraphic();
-		coords = jogador.getCoordinates();
-		canvas.drawBitmap(bitmap, coords.getX(), coords.getY(), null);
+		synchronized(_jogador) {
+			canvas.drawBitmap(_jogador.getGraphic() , _jogador.getCoordinates().getX(), _jogador.getCoordinates().getY(), null);
+		}
 	}
 
 	@Override
@@ -59,8 +53,8 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 			}
 		}
 	}
-	
-	public void fimTela() {
-		
+
+	public static void setJogador(NaveJogador jogador) {
+		_jogador = jogador;
 	}
 }

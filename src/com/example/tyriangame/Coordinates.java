@@ -1,22 +1,22 @@
 package com.example.tyriangame;
 
 public class Coordinates {
-	private int _x;
-	private int _y;
+	private float _x;
+	private float _y;
 
-	public int getX() {
+	public float getX() {
 		return _x;
 	}
 
-	public void setX(int value) {
-		_x = value;
+	public void setX(float f) {
+		_x = f;
 	}
 
-	public int getY() {
+	public float getY() {
 		return _y;
 	}
 
-	public void setY(int value) {
+	public void setY(float value) {
 		_y = value;
 	}
 
