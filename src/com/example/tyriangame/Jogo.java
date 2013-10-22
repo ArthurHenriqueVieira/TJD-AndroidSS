@@ -51,8 +51,8 @@ public class Jogo extends Activity implements SensorEventListener {
 			synchronized(jogador) {
 				float x = event.values[0];
 				float y = event.values[1];
-				jogador.getCoordinates().setX(x += x);
-				jogador.getCoordinates().setY(y += y);
+				jogador.getCoordinates().setX(x);
+				jogador.getCoordinates().setY(y);
 			}
 		}
 	}
