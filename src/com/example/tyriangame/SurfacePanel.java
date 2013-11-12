@@ -13,7 +13,8 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 	private SurfaceThread _thread;
 	private Personagens personagens = new Personagens();
 	
-	private float _movimentoX = 0, _movimentoY = 0;
+	private float _movimentoX = 115;
+	private float _movimentoY = 250;
 	
 	private Bitmap _tiroBitmap, _inimigoBitmap;
 
@@ -41,6 +42,12 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 		Bitmap bitmap;
 		Coordinates coordinates;
 		
+		for (Inimigo inimigo : personagens.getInimigo()) {
+			bitmap = inimigo.getGraphic();
+			coordinates = inimigo.getCoordinates();
+			canvas.drawBitmap(bitmap, coordinates.getX(), coordinates.getY(), null);
+		}
+		
 		for (Tiro tiro : personagens.getTiros()) {
 			bitmap = tiro.getGraphic();
 			coordinates = tiro.getCoordinates();
@@ -59,8 +66,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			
 			synchronized (_thread.getSurfaceHolder()) {
-				Tiro tiro = new Tiro(BitmapFactory.decodeResource(getResources(),
-								R.drawable.nave), personagens.getNaveJogador());
+				Tiro tiro = new Tiro(_tiroBitmap, personagens.getNaveJogador());
 				tiro.getCoordinates().setX(personagens.getNaveJogador().getCoordinates().getX());
 				tiro.getCoordinates().setY(personagens.getNaveJogador().getCoordinates().getY());
 				tiro.getSpeed().setY(5);
@@ -81,6 +87,8 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 	public void surfaceCreated(SurfaceHolder holder) {
 		_thread.setRunning(true);
 		_thread.start();
+		
+		personagens.addInimigos(_inimigoBitmap);
 	}
 
 	@Override
@@ -109,8 +117,47 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 				personagens.getTiros().remove(i);
 			}
 		}
+		
+		Coordinates coord;
+		Speed speed;
+		for(Inimigo inimigos : personagens.getInimigo()) {
+			coord = inimigos.getCoordinates();
+			speed = inimigos.getSpeed();
+			
+			// Direction
+			if (speed.getXDirection() == Speed.X_DIRECTION_RIGHT) {
+				coord.setX((int) (coord.getX() + speed.getX() * 1));
+			} else {
+				coord.setX((int) (coord.getX() - speed.getX() * 1));
+			}
+			if (speed.getYDirection() == Speed.Y_DIRECTION_DOWN) {
+				coord.setY((int) (coord.getY() + speed.getY() * 1));
+			} else {
+				coord.setY((int) (coord.getY() - speed.getY() * 1));
+			}
+			
+			// borders for x...
+			if (coord.getX() < 0) {
+				speed.toggleXDirection();
+				coord.setX(-coord.getX());
+			} else if (coord.getX() + (inimigos.getGraphic().getWidth()) > getWidth()) {
+				speed.toggleXDirection();
+				coord.setX(coord.getX() + getWidth() + -(coord.getX() + inimigos.getGraphic().getWidth()));
+			}
+
+			// borders for y...
+			if (coord.getY() < 0) {
+				speed.toggleYDirection();
+				coord.setY(-coord.getY());
+			} else if (coord.getY() + inimigos.getGraphic().getHeight() > getHeight()) {
+				speed.toggleYDirection();
+				coord.setY(coord.getY()
+						+ getHeight()
+						+ -(coord.getY() + inimigos.getGraphic()
+								.getHeight()));
+			}
+		}
 	}
-	
 	public float setMovimentoX(float movimentoX){
 		return _movimentoX += movimentoX;
 	}

@@ -11,8 +11,6 @@ public class NaveJogador {
 	public NaveJogador(Bitmap bitmap) {
 	    _bitmap = bitmap;
 	    _coordinates = new Coordinates();
-	    _coordinates.setX(115);
-	    _coordinates.setY(250);
 	    _energia = 100;
 	}
 	

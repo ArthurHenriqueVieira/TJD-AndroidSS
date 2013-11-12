@@ -1,7 +1,6 @@
 package com.example.tyriangame;
 
 import android.app.Activity;
-import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
