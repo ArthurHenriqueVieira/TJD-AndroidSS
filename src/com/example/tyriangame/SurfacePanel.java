@@ -1,7 +1,5 @@
 package com.example.tyriangame;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,34 +10,47 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback {
-	private static NaveJogador _jogador;
 	private SurfaceThread _thread;
-	private ArrayList<Tiro> _tiro = new ArrayList<Tiro>();
+	private Personagens personagens = new Personagens();
+	
+	private float _movimentoX = 0, _movimentoY = 0;
+	
+	private Bitmap _tiroBitmap, _inimigoBitmap;
 
 	public SurfacePanel(Context context) {
 		super(context);
 		getHolder().addCallback(this);
 		_thread = new SurfaceThread(getHolder(), this);
 		setFocusable(true);
+		
+		personagens.setNaveJogador(new NaveJogador(BitmapFactory.decodeResource(
+				getResources(), R.drawable.nave)));
+		
+		_tiroBitmap = BitmapFactory.decodeResource(getResources(),
+				R.drawable.nave);
+		
+		_inimigoBitmap = BitmapFactory.decodeResource(getResources(),
+				R.drawable.nave);
 	}
 	
 	@Override
 	public void onDraw(Canvas canvas) {
-		canvas.drawColor(Color.BLACK);		
-		
-		//Desenha a nave jogador
-		synchronized(_jogador) {
-			canvas.drawBitmap(_jogador.getGraphic(), _jogador.getCoordinates().getX(), _jogador.getCoordinates().getY(), null);
-		}
+		canvas.drawColor(Color.BLACK);
 		
 		//Desenha os Tiros
 		Bitmap bitmap;
 		Coordinates coordinates;
-		for (Tiro tiro : _tiro) {
+		
+		for (Tiro tiro : personagens.getTiros()) {
 			bitmap = tiro.getGraphic();
 			coordinates = tiro.getCoordinates();
 			canvas.drawBitmap(bitmap, coordinates.getX(), coordinates.getY(), null);
 		}
+		
+		canvas.drawBitmap(personagens.getNaveJogador().getGraphic(),
+				personagens.getNaveJogador().getCoordinates().getX(),
+				personagens.getNaveJogador().getCoordinates().getY(),
+				null);
 	}
 	
 	@Override
@@ -49,11 +60,11 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 			
 			synchronized (_thread.getSurfaceHolder()) {
 				Tiro tiro = new Tiro(BitmapFactory.decodeResource(getResources(),
-								R.drawable.nave), _jogador);
-				tiro.getCoordinates().setX(_jogador.getCoordinates().getX());
-				tiro.getCoordinates().setY(_jogador.getCoordinates().getY());
+								R.drawable.nave), personagens.getNaveJogador());
+				tiro.getCoordinates().setX(personagens.getNaveJogador().getCoordinates().getX());
+				tiro.getCoordinates().setY(personagens.getNaveJogador().getCoordinates().getY());
 				tiro.getSpeed().setY(5);
-				_tiro.add(tiro);
+				personagens.getTiros().add(tiro);
 			}
 		}
 		return true;
@@ -87,18 +98,24 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 	}
 	public void updatePhysics() {
 		
-		for (Tiro tiro : _tiro) {
-			
+		personagens.getNaveJogador().getCoordinates().setX(_movimentoX);
+		personagens.getNaveJogador().getCoordinates().setY(_movimentoY);
+		
+		for (Tiro tiro : personagens.getTiros()) {
 			tiro.getCoordinates().setY(tiro.getCoordinates().getY() - tiro.getSpeed().getY());
 		}
-		for(int i = 0; i < _tiro.size(); i++) {
-			if (_tiro.get(i).getCoordinates().getY() < 0) {
-				_tiro.remove(i);
+		for(int i = 0; i < personagens.getTiros().size(); i++) {
+			if (personagens.getTiros().get(i).getCoordinates().getY() < 0) {
+				personagens.getTiros().remove(i);
 			}
 		}
 	}
-
-	public static void setJogador(NaveJogador jogador) {
-		_jogador = jogador;
+	
+	public float setMovimentoX(float movimentoX){
+		return _movimentoX += movimentoX;
+	}
+	
+	public float setMovimentoY(float movimentoY){
+		return _movimentoY += movimentoY;
 	}
 }
