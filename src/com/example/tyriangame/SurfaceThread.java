@@ -30,6 +30,7 @@ class SurfaceThread extends Thread {
 				c = _surfaceHolder.lockCanvas(null);
 				synchronized (_surfaceHolder) {
 					_panel.onDraw(c);
+					_panel.updatePhysics();
 				}
 			} finally {
 				if (c != null) {

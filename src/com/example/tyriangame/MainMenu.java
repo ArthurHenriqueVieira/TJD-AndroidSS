@@ -81,7 +81,7 @@ public class MainMenu extends Activity {
 				
 				@Override
 				public void onClick(View arg0) {
-					mMediaPlayer.stop();
+					mMediaPlayer.pause();
 					Intent i = new Intent();
 					i.setClass(getApplicationContext(), Jogo.class);
         			startActivity(i);

@@ -6,8 +6,8 @@ public class Speed {
     public static final int Y_DIRECTION_DOWN = 1;
     public static final int Y_DIRECTION_UP = -1;
  
-    private int _x;
-    private int _y;
+    private int _x = 1;
+    private int _y = 1;
  
     private int _xDirection = X_DIRECTION_RIGHT;
     private int _yDirection = Y_DIRECTION_DOWN;
