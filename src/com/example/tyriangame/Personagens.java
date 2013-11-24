@@ -1,7 +1,6 @@
 package com.example.tyriangame;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import android.graphics.Bitmap;
 

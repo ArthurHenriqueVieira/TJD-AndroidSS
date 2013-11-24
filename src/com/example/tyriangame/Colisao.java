@@ -1,7 +1,37 @@
 package com.example.tyriangame;
 
+import java.util.ArrayList;
+
 public class Colisao {
-	static public Boolean checaColisaoDeDoisCirculos(GameObject a, GameObject b) {
+	static public void checaColisaoDoPlayerComInimigos(NaveJogador player, ArrayList<Inimigo> inimigos)
+	{
+		for(Inimigo inimigo : inimigos)
+		{
+			if(isColidindoDoisCirculos(player, inimigo))
+			{
+				// Ações de Game Over
+			}
+		}
+	}
+	
+	static public void checaColisaoDosTirosComInimigos(ArrayList<Inimigo> inimigos, ArrayList<Tiro> tiros)
+	{
+		for(Inimigo inimigo : inimigos)
+		{
+			for(Tiro tiro : tiros)
+			{
+				if(isColidindoDoisCirculos(inimigo, tiro))
+				{
+					inimigos.remove(inimigo);
+					tiros.remove(tiro);
+					break;
+				}
+			}
+		}
+	}
+	
+	static public Boolean isColidindoDoisCirculos(GameObject a, GameObject b)
+	{
 		// Calcula a hipotenusa
 		float distX = Math.abs(a.getCoordinates().getX() - b.getCoordinates().getX());
 		float distY = Math.abs(a.getCoordinates().getY() - b.getCoordinates().getY());
