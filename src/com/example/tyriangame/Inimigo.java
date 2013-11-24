@@ -2,7 +2,7 @@ package com.example.tyriangame;
 
 import android.graphics.Bitmap;
 
-public class Inimigo {
+public class Inimigo implements GameObject {
 	private Bitmap _bitmap;
 	private Coordinates _coordinates;
 	private NaveJogador _jogador;
