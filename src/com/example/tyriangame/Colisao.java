@@ -1,14 +1,19 @@
 package com.example.tyriangame;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Colisao {
 	static public void checaColisaoDoPlayerComInimigos(NaveJogador player, ArrayList<Inimigo> inimigos)
 	{
-		for(Inimigo inimigo : inimigos)
+		Iterator<Inimigo> iInimigos = inimigos.iterator();
+		while(iInimigos.hasNext())
 		{
+			Inimigo inimigo = iInimigos.next();
+
 			if(isColidindoDoisCirculos(player, inimigo))
 			{
+				iInimigos.remove(); // Remove o inimigo que colidiu
 				// Ações de Game Over
 			}
 		}
@@ -16,14 +21,18 @@ public class Colisao {
 	
 	static public void checaColisaoDosTirosComInimigos(ArrayList<Inimigo> inimigos, ArrayList<Tiro> tiros)
 	{
-		for(Inimigo inimigo : inimigos)
+		Iterator<Inimigo> iInimigos = inimigos.iterator();
+		while(iInimigos.hasNext())
 		{
-			for(Tiro tiro : tiros)
+			Inimigo inimigo = iInimigos.next();
+			
+			Iterator<Tiro> iTiros = tiros.iterator();
+			while(iTiros.hasNext())
 			{
-				if(isColidindoDoisCirculos(inimigo, tiro))
+				if(isColidindoDoisCirculos(inimigo, iTiros.next()))
 				{
-					inimigos.remove(inimigo);
-					tiros.remove(tiro);
+					iInimigos.remove();
+					iTiros.remove();
 					break;
 				}
 			}
@@ -33,8 +42,8 @@ public class Colisao {
 	static public Boolean isColidindoDoisCirculos(GameObject a, GameObject b)
 	{
 		// Calcula a hipotenusa
-		float distX = Math.abs(a.getCoordinates().getX() - b.getCoordinates().getX());
-		float distY = Math.abs(a.getCoordinates().getY() - b.getCoordinates().getY());
+		float distX = a.getCoordinates().getX() - b.getCoordinates().getX();
+		float distY = a.getCoordinates().getY() - b.getCoordinates().getY();
 		double distHip = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
 		
 		// Pega a menor dimensão das imagens
@@ -45,7 +54,7 @@ public class Colisao {
 		double raio = raioA >= raioB ? raioA : raioB;
 		
 		// Verifica a colisão
-		if(distHip >= raio)
+		if(distHip <= raio)
 			return true;
 		else
 			return false;

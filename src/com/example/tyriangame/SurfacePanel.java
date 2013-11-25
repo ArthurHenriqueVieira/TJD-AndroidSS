@@ -42,9 +42,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 		Bitmap bitmap;
 		Coordinates coordinates;
 		
-		Colisao.checaColisaoDoPlayerComInimigos(personagens.getNaveJogador(), personagens.getInimigo());
-		Colisao.checaColisaoDosTirosComInimigos(personagens.getInimigo(), personagens.getTiros());
-		
 		for (Inimigo inimigo : personagens.getInimigo()) {
 			bitmap = inimigo.getGraphic();
 			coordinates = inimigo.getCoordinates();
@@ -160,6 +157,9 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 								.getHeight()));
 			}
 		}
+		
+		Colisao.checaColisaoDoPlayerComInimigos(personagens.getNaveJogador(), personagens.getInimigo());
+		Colisao.checaColisaoDosTirosComInimigos(personagens.getInimigo(), personagens.getTiros());
 	}
 	public float setMovimentoX(float movimentoX){
 		return _movimentoX += movimentoX;

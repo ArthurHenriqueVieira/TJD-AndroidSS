@@ -20,7 +20,7 @@ public class Personagens {
 		return _tiro;
 	}
 	
-	public ArrayList<Inimigo> getInimigo() {
+	public synchronized ArrayList<Inimigo> getInimigo() {
 		return _inimigo;
 	}
 	
