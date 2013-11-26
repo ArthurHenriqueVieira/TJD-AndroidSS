@@ -125,24 +125,13 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 			speed = inimigos.getSpeed();
 			
 			// Direction
-			if (speed.getXDirection() == Speed.X_DIRECTION_RIGHT) {
-				coord.setX((int) (coord.getX() + speed.getX() * 1));
-			} else {
-				coord.setX((int) (coord.getX() - speed.getX() * 1));
-			}
 			if (speed.getYDirection() == Speed.Y_DIRECTION_DOWN) {
 				coord.setY((int) (coord.getY() + speed.getY() * 1));
-			} else {
-				coord.setY((int) (coord.getY() - speed.getY() * 1));
 			}
 			
 			// borders for x...
-			if (coord.getX() < 0) {
-				speed.toggleXDirection();
-				coord.setX(-coord.getX());
-			} else if (coord.getX() + (inimigos.getGraphic().getWidth()) > getWidth()) {
-				speed.toggleXDirection();
-				coord.setX(coord.getX() + getWidth() + -(coord.getX() + inimigos.getGraphic().getWidth()));
+			if (coord.getX() + (inimigos.getGraphic().getWidth()) > getWidth()) {
+				personagens.getInimigo().remove(inimigos);
 			}
 
 			// borders for y...

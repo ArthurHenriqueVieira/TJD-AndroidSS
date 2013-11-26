@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Colisao {
+	
+	public static int pontos;
+	
 	static public void checaColisaoDoPlayerComInimigos(NaveJogador player, ArrayList<Inimigo> inimigos)
 	{
 		Iterator<Inimigo> iInimigos = inimigos.iterator();
@@ -33,6 +36,7 @@ public class Colisao {
 				{
 					iInimigos.remove();
 					iTiros.remove();
+					pontos += 10;
 					break;
 				}
 			}

@@ -28,10 +28,12 @@ public class Personagens {
 		
 		for(int i = 0; i < 10; i++){
 			Inimigo inimigo = new Inimigo(bitmap);
-
-			inimigo.getCoordinates().setX(0);
+			
+			int j = i;
+			inimigo.getCoordinates().setX(j);
 			inimigo.getCoordinates().setY(0);
 			
+			j += 10;
 			_inimigo.add(inimigo);
 		}
 	}
