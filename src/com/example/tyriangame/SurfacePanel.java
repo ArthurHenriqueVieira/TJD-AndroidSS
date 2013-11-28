@@ -20,8 +20,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 	
 	private Colisao colisao = new Colisao();
 	
-	private Sons som = new Sons();
-	
 	public SurfacePanel(Context context) {
 		super(context);
 		getHolder().addCallback(this);
@@ -75,7 +73,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 				tiro.getCoordinates().setY(personagens.getNaveJogador().getCoordinates().getY());
 				tiro.getSpeed().setY(5);
 				personagens.getTiros().add(tiro);
-				som.tocarTiro();
 			}
 		}
 		return true;

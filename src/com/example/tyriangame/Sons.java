@@ -15,7 +15,7 @@ public class Sons extends Activity{
 	private int somDuranteOJogo;
 	private int somTiro;
 	
-	Sons() {
+	private Sons() {
 		somExplosao = soundp.load(this, R.raw.explosao, 1);
 		somDuranteOJogo = soundp.load(this, R.raw.explosao, 1);
 		somTiro = soundp.load(this, R.raw.explosao, 1);

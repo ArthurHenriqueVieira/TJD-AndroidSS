@@ -98,7 +98,7 @@ public class MainMenu extends Activity {
 				            new DialogInterface.OnClickListener() {
 				                public void onClick(DialogInterface dialog, int id) {
 				                    dialog.cancel();
-				                    dificuldade = 0.1f;
+				                    dificuldade = 1f;
 				                    Intent i = new Intent();
 									i.setClass(getApplicationContext(), Jogo.class);
 				        			startActivity(i);
@@ -108,7 +108,7 @@ public class MainMenu extends Activity {
 				            new DialogInterface.OnClickListener() {
 				                public void onClick(DialogInterface dialog, int id) {
 				                    dialog.cancel();
-				                    dificuldade = 0.2f;
+				                    dificuldade = 2f;
 				                    Intent i = new Intent();
 									i.setClass(getApplicationContext(), Jogo.class);
 				        			startActivity(i);
@@ -118,7 +118,7 @@ public class MainMenu extends Activity {
 				            new DialogInterface.OnClickListener() {
 				                public void onClick(DialogInterface dialog, int id) {
 				                    dialog.cancel();
-				                    dificuldade = 0.6f;
+				                    dificuldade = 6f;
 				                    Intent i = new Intent();
 									i.setClass(getApplicationContext(), Jogo.class);
 				        			startActivity(i);
