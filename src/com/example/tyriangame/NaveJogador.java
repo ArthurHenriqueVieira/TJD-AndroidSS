@@ -6,16 +6,19 @@ public class NaveJogador implements GameObject {
 	private Bitmap _bitmap;
 	private Coordinates _coordinates;
 	
-	private int _energia;
+	private int _vida;
 	 
 	public NaveJogador(Bitmap bitmap) {
 	    _bitmap = bitmap;
 	    _coordinates = new Coordinates();
-	    _energia = 100;
+	    _vida = 3;
 	}
 	
-	public int getEnergia() {
-		return _energia;
+	public int getVida() {
+		return _vida;
+	}
+	public void diminuirVida() {
+		_vida -= 1;
 	}
 
 	public Bitmap getGraphic() {

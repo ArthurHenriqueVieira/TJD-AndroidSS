@@ -16,6 +16,7 @@ public class Colisao{
 			if(isColidindoDoisCirculos(player, inimigo))
 			{
 				iInimigos.remove(); // Remove o inimigo que colidiu
+				player.diminuirVida();
 				main.gameOver();
 			}
 		}
