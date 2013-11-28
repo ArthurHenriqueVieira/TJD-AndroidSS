@@ -27,6 +27,8 @@
         <activity android:name=".Configuracao"></activity>
         <activity android:name=".Ranking"></activity>
         <activity android:name=".Jogo"></activity>
+        <activity android:name=".Colisao"></activity>
+        <activity android:name=".GameOver"></activity>
     </application>
 
 </manifest>

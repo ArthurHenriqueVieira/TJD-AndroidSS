@@ -17,6 +17,8 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 	private float _movimentoY = 250;
 	
 	private Bitmap _tiroBitmap, _inimigoBitmap;
+	
+	Colisao colisao = new Colisao();
 
 	public SurfacePanel(Context context) {
 		super(context);
@@ -88,7 +90,9 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 		_thread.setRunning(true);
 		_thread.start();
 		
-		personagens.addInimigos(_inimigoBitmap);
+		if(personagens.getInimigo().size() <= 0) {
+			personagens.addInimigos(_inimigoBitmap);
+		}
 	}
 
 	@Override
@@ -126,7 +130,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 			
 			// Direction
 			if (speed.getYDirection() == Speed.Y_DIRECTION_DOWN) {
-				coord.setY((int) (coord.getY() + speed.getY() * 1));
+				coord.setY((int) (coord.getY() + speed.getY() * MainMenu.dificuldade));
 			}
 			
 			// borders for x...
@@ -146,8 +150,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 								.getHeight()));
 			}
 		}
-		
-		Colisao.checaColisaoDoPlayerComInimigos(personagens.getNaveJogador(), personagens.getInimigo());
+		colisao.checaColisaoDoPlayerComInimigos(personagens.getNaveJogador(), personagens.getInimigo());
 		Colisao.checaColisaoDosTirosComInimigos(personagens.getInimigo(), personagens.getTiros());
 	}
 	public float setMovimentoX(float movimentoX){

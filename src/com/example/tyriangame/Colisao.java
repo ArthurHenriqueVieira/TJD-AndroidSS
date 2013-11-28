@@ -3,11 +3,10 @@ package com.example.tyriangame;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Colisao {
+public class Colisao{
 	
-	public static int pontos;
-	
-	static public void checaColisaoDoPlayerComInimigos(NaveJogador player, ArrayList<Inimigo> inimigos)
+	private MainMenu main = new MainMenu();
+	public void checaColisaoDoPlayerComInimigos(NaveJogador player, ArrayList<Inimigo> inimigos)
 	{
 		Iterator<Inimigo> iInimigos = inimigos.iterator();
 		while(iInimigos.hasNext())
@@ -17,7 +16,7 @@ public class Colisao {
 			if(isColidindoDoisCirculos(player, inimigo))
 			{
 				iInimigos.remove(); // Remove o inimigo que colidiu
-				// Ações de Game Over
+				main.gameOver();
 			}
 		}
 	}
@@ -36,7 +35,6 @@ public class Colisao {
 				{
 					iInimigos.remove();
 					iTiros.remove();
-					pontos += 10;
 					break;
 				}
 			}

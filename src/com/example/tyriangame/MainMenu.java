@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.widget.Button;
@@ -20,6 +23,11 @@ public class MainMenu extends Activity {
 	
 	//Cria um media player
 	MediaPlayer mMediaPlayer;
+	
+	//Cria um nivel de dificuldade
+	public static int dificuldade;
+	
+	Context contexto;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,8 @@ public class MainMenu extends Activity {
 		btn_ranking = (Button)findViewById(R.id.btn_ranking);
 		btn_configuracoes = (Button)findViewById(R.id.btn_configuracoes);
 		btn_jogo = (Button)findViewById(R.id.btn_novoJogo);
+		
+		contexto = this;
 		
 		//Cria um media Player
 		mMediaPlayer = new MediaPlayer();
@@ -81,10 +91,41 @@ public class MainMenu extends Activity {
 				
 				@Override
 				public void onClick(View arg0) {
-					mMediaPlayer.pause();
-					Intent i = new Intent();
-					i.setClass(getApplicationContext(), Jogo.class);
-        			startActivity(i);
+					AlertDialog.Builder dificult = new AlertDialog.Builder(contexto);
+					
+					dificult.setMessage("Escolha a dificuldade");
+					dificult.setPositiveButton("Difícil",
+				            new DialogInterface.OnClickListener() {
+				                public void onClick(DialogInterface dialog, int id) {
+				                    dialog.cancel();
+				                    dificuldade = 24;
+				                    Intent i = new Intent();
+									i.setClass(getApplicationContext(), Jogo.class);
+				        			startActivity(i);
+				                }
+				            });
+					dificult.setNeutralButton("Médio",
+				            new DialogInterface.OnClickListener() {
+				                public void onClick(DialogInterface dialog, int id) {
+				                    dialog.cancel();
+				                    dificuldade = 8;
+				                    Intent i = new Intent();
+									i.setClass(getApplicationContext(), Jogo.class);
+				        			startActivity(i);
+				                }
+				            });
+					dificult.setNegativeButton("Fácil",
+				            new DialogInterface.OnClickListener() {
+				                public void onClick(DialogInterface dialog, int id) {
+				                    dialog.cancel();
+				                    dificuldade = 4;
+				                    Intent i = new Intent();
+									i.setClass(getApplicationContext(), Jogo.class);
+				        			startActivity(i);
+				                }
+				            });
+					AlertDialog alert = dificult.create();
+					alert.show();
 				}
 			});
 		}
@@ -109,5 +150,21 @@ public class MainMenu extends Activity {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
 		return true;
 	}
-
+	public void onResume() {
+		super.onResume();
+		
+		mMediaPlayer.start();
+	}
+	
+	public void onPause(){
+		super.onPause();
+		
+		mMediaPlayer.pause();
+	}
+	
+	public void gameOver() {
+		Intent i = new Intent();
+		i.setClass(this, GameOver.class);
+		startActivity(i);
+	}
 }

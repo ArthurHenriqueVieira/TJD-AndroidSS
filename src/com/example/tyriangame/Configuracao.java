@@ -8,5 +8,4 @@ public class Configuracao extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_configuracoes);
 	}
-
 }

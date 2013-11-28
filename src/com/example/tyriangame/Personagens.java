@@ -33,7 +33,7 @@ public class Personagens {
 			inimigo.getCoordinates().setX(j);
 			inimigo.getCoordinates().setY(0);
 			
-			j += 10;
+			j += 50;
 			_inimigo.add(inimigo);
 		}
 	}
