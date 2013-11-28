@@ -48,7 +48,9 @@ public final class R {
         public static final int menu=0x7f080001;
     }
     public static final class raw {
-        public static final int musica_fundo=0x7f040000;
+        public static final int explosao=0x7f040000;
+        public static final int musica_fundo=0x7f040001;
+        public static final int musica_jogo=0x7f040002;
     }
     public static final class string {
         public static final int action_settings=0x7f060001;

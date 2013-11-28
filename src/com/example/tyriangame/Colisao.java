@@ -5,7 +5,8 @@ import java.util.Iterator;
 
 public class Colisao{
 	
-	private MainMenu main = new MainMenu();
+	private Sons som = new Sons();
+	
 	public void checaColisaoDoPlayerComInimigos(NaveJogador player, ArrayList<Inimigo> inimigos)
 	{
 		Iterator<Inimigo> iInimigos = inimigos.iterator();
@@ -17,12 +18,12 @@ public class Colisao{
 			{
 				iInimigos.remove(); // Remove o inimigo que colidiu
 				player.diminuirVida();
-				main.gameOver();
+				som.tocarExplosao();
 			}
 		}
 	}
 	
-	static public void checaColisaoDosTirosComInimigos(ArrayList<Inimigo> inimigos, ArrayList<Tiro> tiros)
+	public void checaColisaoDosTirosComInimigos(ArrayList<Inimigo> inimigos, ArrayList<Tiro> tiros)
 	{
 		Iterator<Inimigo> iInimigos = inimigos.iterator();
 		while(iInimigos.hasNext())
@@ -34,6 +35,7 @@ public class Colisao{
 			{
 				if(isColidindoDoisCirculos(inimigo, iTiros.next()))
 				{
+					som.tocarExplosao();
 					iInimigos.remove();
 					iTiros.remove();
 					break;

@@ -25,7 +25,7 @@ public class MainMenu extends Activity {
 	MediaPlayer mMediaPlayer;
 	
 	//Cria um nivel de dificuldade
-	public static int dificuldade;
+	public static float dificuldade;
 	
 	Context contexto;
     
@@ -94,11 +94,11 @@ public class MainMenu extends Activity {
 					AlertDialog.Builder dificult = new AlertDialog.Builder(contexto);
 					
 					dificult.setMessage("Escolha a dificuldade");
-					dificult.setPositiveButton("Difícil",
+					dificult.setPositiveButton("Fácil",
 				            new DialogInterface.OnClickListener() {
 				                public void onClick(DialogInterface dialog, int id) {
 				                    dialog.cancel();
-				                    dificuldade = 24;
+				                    dificuldade = 0.1f;
 				                    Intent i = new Intent();
 									i.setClass(getApplicationContext(), Jogo.class);
 				        			startActivity(i);
@@ -108,17 +108,17 @@ public class MainMenu extends Activity {
 				            new DialogInterface.OnClickListener() {
 				                public void onClick(DialogInterface dialog, int id) {
 				                    dialog.cancel();
-				                    dificuldade = 8;
+				                    dificuldade = 0.2f;
 				                    Intent i = new Intent();
 									i.setClass(getApplicationContext(), Jogo.class);
 				        			startActivity(i);
 				                }
 				            });
-					dificult.setNegativeButton("Fácil",
+					dificult.setNegativeButton("Difícil",
 				            new DialogInterface.OnClickListener() {
 				                public void onClick(DialogInterface dialog, int id) {
 				                    dialog.cancel();
-				                    dificuldade = 4;
+				                    dificuldade = 0.6f;
 				                    Intent i = new Intent();
 									i.setClass(getApplicationContext(), Jogo.class);
 				        			startActivity(i);

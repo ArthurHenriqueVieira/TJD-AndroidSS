@@ -26,15 +26,14 @@ public class Personagens {
 	
 	public void addInimigos(Bitmap bitmap) {
 		
-		for(int i = 0; i < 10; i++){
+		for(int i = 0; i < 10; i ++) {
 			Inimigo inimigo = new Inimigo(bitmap);
-			
-			int j = i;
-			inimigo.getCoordinates().setX(j);
+		
+			inimigo.getCoordinates().setX(0);
 			inimigo.getCoordinates().setY(0);
-			
-			j += 50;
+		
 			_inimigo.add(inimigo);
 		}
+		
 	}
 }

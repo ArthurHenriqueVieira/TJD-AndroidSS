@@ -31,6 +31,7 @@ class SurfaceThread extends Thread {
 				synchronized (_surfaceHolder) {
 					_panel.onDraw(c);
 					_panel.updatePhysics();
+					//_panel.ChecaMorteJogador();
 				}
 			} finally {
 				if (c != null) {
