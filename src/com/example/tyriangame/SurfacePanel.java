@@ -21,8 +21,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 	
 	private Colisao colisao = new Colisao();
 	
-	Rect rect = new Rect(0, 0, getWidth(), getHeight());
-	
 	public SurfacePanel(Context context) {
 		super(context);
 		getHolder().addCallback(this);
@@ -73,6 +71,8 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 				personagens.getNaveJogador().getCoordinates().getY(),
 				null);
 		
+		_gameOver = Bitmap.createScaledBitmap(_gameOver, getWidth(), getHeight(), true);
+		
 		if(personagens.getNaveJogador().getVida() <= 0) {
 			canvas.drawBitmap(_gameOver, 0, 0, null);
 		}
@@ -109,7 +109,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 		
 		if(personagens.getInimigo().size() <= 0) {
 			for(int i = 0; i < 10; i++) {
-				personagens.addInimigos(_inimigoBitmap, i * 10);
+				personagens.addInimigos(_inimigoBitmap, i * 50);
 			}
 		}
 	}
