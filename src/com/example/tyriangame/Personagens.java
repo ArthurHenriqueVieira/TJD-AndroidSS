@@ -24,16 +24,12 @@ public class Personagens {
 		return _inimigo;
 	}
 	
-	public void addInimigos(Bitmap bitmap) {
+	public void addInimigos(Bitmap bitmap, int x) {
+		Inimigo inimigo = new Inimigo(bitmap);
 		
-		for(int i = 0; i < 10; i ++) {
-			Inimigo inimigo = new Inimigo(bitmap);
+		inimigo.getCoordinates().setX(x);
+		inimigo.getCoordinates().setY(0);
 		
-			inimigo.getCoordinates().setX(0);
-			inimigo.getCoordinates().setY(0);
-		
-			_inimigo.add(inimigo);
-		}
-		
+		_inimigo.add(inimigo);
 	}
 }

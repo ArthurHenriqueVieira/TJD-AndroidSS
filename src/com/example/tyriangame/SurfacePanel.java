@@ -17,7 +17,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 	private float _movimentoX = 115;
 	private float _movimentoY = 250;
 	
-	private Bitmap _tiroBitmap, _inimigoBitmap, _campo;
+	private Bitmap _tiroBitmap, _inimigoBitmap, _campo, _gameOver;
 	
 	private Colisao colisao = new Colisao();
 	
@@ -40,6 +40,9 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 		
 		_campo = BitmapFactory.decodeResource(getResources(),
 				R.drawable.agua);
+		
+		_gameOver = BitmapFactory.decodeResource(getResources(),
+				R.drawable.gameover);
 	}
 	
 	@Override
@@ -69,6 +72,10 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 				personagens.getNaveJogador().getCoordinates().getX(),
 				personagens.getNaveJogador().getCoordinates().getY(),
 				null);
+		
+		if(personagens.getNaveJogador().getVida() <= 0) {
+			canvas.drawBitmap(_gameOver, 0, 0, null);
+		}
 	}
 	
 	@Override
@@ -101,7 +108,9 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 		_thread.start();
 		
 		if(personagens.getInimigo().size() <= 0) {
-			personagens.addInimigos(_inimigoBitmap);
+			for(int i = 0; i < 10; i++) {
+				personagens.addInimigos(_inimigoBitmap, i * 10);
+			}
 		}
 	}
 
@@ -118,14 +127,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 			}
 		}
 	}
-	
-	/*public void ChecaMorteJogador() {
-		if(personagens.getNaveJogador().getVida() == 0) {
-			MainMenu gameover = new MainMenu();
-			
-			gameover.gameOver();
-		}
-	}*/
 	
 	public void updatePhysics() {
 		
@@ -155,18 +156,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 			// borders for x...
 			if (coord.getX() + (inimigos.getGraphic().getWidth()) > getWidth()) {
 				personagens.getInimigo().remove(inimigos);
-			}
-
-			// borders for y...
-			if (coord.getY() < 0) {
-				speed.toggleYDirection();
-				coord.setY(-coord.getY());
-			} else if (coord.getY() + inimigos.getGraphic().getHeight() > getHeight()) {
-				speed.toggleYDirection();
-				coord.setY(coord.getY()
-						+ getHeight()
-						+ -(coord.getY() + inimigos.getGraphic()
-								.getHeight()));
 			}
 		}
 		colisao.checaColisaoDoPlayerComInimigos(personagens.getNaveJogador(), personagens.getInimigo());

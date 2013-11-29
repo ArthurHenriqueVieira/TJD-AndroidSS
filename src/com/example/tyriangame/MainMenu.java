@@ -161,10 +161,4 @@ public class MainMenu extends Activity {
 		
 		mMediaPlayer.pause();
 	}
-	
-	public void gameOver() {
-		Intent i = new Intent();
-		i.setClass(this, GameOver.class);
-		startActivity(i);
-	}
 }
