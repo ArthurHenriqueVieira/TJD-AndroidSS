@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -16,9 +17,11 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 	private float _movimentoX = 115;
 	private float _movimentoY = 250;
 	
-	private Bitmap _tiroBitmap, _inimigoBitmap;
+	private Bitmap _tiroBitmap, _inimigoBitmap, _campo;
 	
 	private Colisao colisao = new Colisao();
+	
+	Rect rect = new Rect(0, 0, getWidth(), getHeight());
 	
 	public SurfacePanel(Context context) {
 		super(context);
@@ -30,15 +33,21 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 				getResources(), R.drawable.nave)));
 		
 		_tiroBitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.nave);
+				R.drawable.tiro);
 		
 		_inimigoBitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.nave);
+				R.drawable.inimigo1);
+		
+		_campo = BitmapFactory.decodeResource(getResources(),
+				R.drawable.agua);
 	}
 	
 	@Override
 	public void onDraw(Canvas canvas) {
 		canvas.drawColor(Color.BLACK);
+		
+		//Desenha o campo
+		canvas.drawBitmap(_campo, 0, 0, null);
 		
 		//Desenha os Tiros
 		Bitmap bitmap;
@@ -69,7 +78,8 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 			
 			synchronized (_thread.getSurfaceHolder()) {
 				Tiro tiro = new Tiro(_tiroBitmap, personagens.getNaveJogador());
-				tiro.getCoordinates().setX(personagens.getNaveJogador().getCoordinates().getX());
+				tiro.getCoordinates().setX(personagens.getNaveJogador().getCoordinates().getX()
+						+ (personagens.getNaveJogador().getCoordinates().getX()/2) );
 				tiro.getCoordinates().setY(personagens.getNaveJogador().getCoordinates().getY());
 				tiro.getSpeed().setY(5);
 				personagens.getTiros().add(tiro);
