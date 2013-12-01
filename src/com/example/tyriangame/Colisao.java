@@ -5,8 +5,6 @@ import java.util.Iterator;
 
 public class Colisao{
 	
-	//private Sons som = new Sons();
-	
 	public void checaColisaoDoPlayerComInimigos(NaveJogador player, ArrayList<Inimigo> inimigos)
 	{
 		Iterator<Inimigo> iInimigos = inimigos.iterator();
@@ -18,7 +16,6 @@ public class Colisao{
 			{
 				iInimigos.remove(); // Remove o inimigo que colidiu
 				player.diminuirVida();
-				//som.tocarExplosao();
 			}
 		}
 	}
