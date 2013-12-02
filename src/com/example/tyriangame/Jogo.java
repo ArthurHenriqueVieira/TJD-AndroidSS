@@ -7,6 +7,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.Button;
 
 public class Jogo extends Activity implements SensorEventListener{
 	private SurfacePanel panel;

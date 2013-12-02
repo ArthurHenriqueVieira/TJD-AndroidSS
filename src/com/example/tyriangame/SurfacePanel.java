@@ -1,6 +1,8 @@
 package com.example.tyriangame;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,6 +10,9 @@ import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback {
 	private SurfaceThread _thread;
@@ -20,8 +25,11 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 	
 	private Colisao colisao = new Colisao();
 	
+	static Context contexto;
+	
 	public SurfacePanel(Context context) {
 		super(context);
+		contexto = context;
 		getHolder().addCallback(this);
 		_thread = new SurfaceThread(getHolder(), this);
 		setFocusable(true);
@@ -105,12 +113,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 	public void surfaceCreated(SurfaceHolder holder) {
 		_thread.setRunning(true);
 		_thread.start();
-		
-		if(personagens.getInimigo().size() <= 0) {
-			for(int i = 0; i < 10; i++) {
-				personagens.addInimigos(_inimigoBitmap, i * 50);
-			}
-		}
 	}
 
 	@Override
@@ -128,6 +130,12 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 	}
 	
 	public void updatePhysics() {
+		
+		if(personagens.getInimigo().size() <= 0) {
+			for(int i = 0; i < 10; i++) {
+				personagens.addInimigos(_inimigoBitmap, i * 50);
+			}
+		}
 		
 		personagens.getNaveJogador().getCoordinates().setX(_movimentoX);
 		personagens.getNaveJogador().getCoordinates().setY(_movimentoY);
@@ -151,10 +159,10 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 			if (speed.getYDirection() == Speed.Y_DIRECTION_DOWN) {
 				coord.setY((int) (coord.getY() + speed.getY() * MainMenu.dificuldade));
 			}
-			
-			// borders for x...
-			if (coord.getX() + (inimigos.getGraphic().getWidth()) > getWidth()) {
-				personagens.getInimigo().remove(inimigos);
+		}
+		for(int i = 0; i < personagens.getInimigo().size(); i++) {
+			if (personagens.getInimigo().get(i).getCoordinates().getY() > getHeight()) {
+				personagens.getInimigo().remove(i);
 			}
 		}
 		colisao.checaColisaoDoPlayerComInimigos(personagens.getNaveJogador(), personagens.getInimigo());
