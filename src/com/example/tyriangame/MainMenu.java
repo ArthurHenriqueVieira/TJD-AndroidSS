@@ -1,6 +1,7 @@
 package com.example.tyriangame;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.app.Activity;
@@ -8,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.widget.Button;
 
@@ -42,8 +44,11 @@ public class MainMenu extends Activity {
 		
 		contexto = this;
 		
+		SharedPreferences preferencias = PreferenceManager.getDefaultSharedPreferences(contexto);
+		int volume = Integer.parseInt(preferencias.getString("volume", ""));
+		
 		//Cria um media Player
-		som = new Sons(this);
+		som = new Sons(this, volume);
 		som.tocarMusicaDeFundo();
 		
 		if(btn_ajuda != null) {

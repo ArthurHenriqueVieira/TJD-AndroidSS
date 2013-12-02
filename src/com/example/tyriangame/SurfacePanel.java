@@ -6,29 +6,40 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback {
-	private SurfaceThread _thread;
+	public SurfaceThread _thread;
 	private Personagens personagens = new Personagens();
 	
-	private float _movimentoX = 115;
-	private float _movimentoY = 250;
+	private float _movimentoX = 200;
+	private float _movimentoY = 600;
 	
 	private Bitmap _tiroBitmap, _inimigoBitmap, _campo, _gameOver;
 	
 	private Colisao colisao = new Colisao();
 	
-	static Context contexto;
+	private int _sensibilidade;
 	
-	public SurfacePanel(Context context) {
+	private Paint paint;
+	
+	public SurfacePanel(Context context , int sesibilidade) {
 		super(context);
-		contexto = context;
+		
+		_sensibilidade = sesibilidade;
+		
 		getHolder().addCallback(this);
 		_thread = new SurfaceThread(getHolder(), this);
 		setFocusable(true);
+		
+		paint = new Paint();
+	    paint.setAntiAlias(true);
+	    paint.setDither(true);
+	    paint.setColor(Color.BLACK);
+	    paint.setTextSize(30);
 		
 		personagens.setNaveJogador(new NaveJogador(BitmapFactory.decodeResource(
 				getResources(), R.drawable.nave)));
@@ -69,7 +80,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 			coordinates = tiro.getCoordinates();
 			canvas.drawBitmap(bitmap, coordinates.getX(), coordinates.getY(), null);
 		}
-		
 		canvas.drawBitmap(personagens.getNaveJogador().getGraphic(),
 				personagens.getNaveJogador().getCoordinates().getX(),
 				personagens.getNaveJogador().getCoordinates().getY(),
@@ -77,8 +87,13 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 		
 		_gameOver = Bitmap.createScaledBitmap(_gameOver, getWidth(), getHeight(), true);
 		
+		canvas.drawText("Pontos :" + Jogo.pontos, 0, 25, paint);
+		canvas.drawText("Vidas :" + personagens.getNaveJogador()
+				.getVida(), 0, 50, paint);
+		
 		if(personagens.getNaveJogador().getVida() <= 0) {
 			canvas.drawBitmap(_gameOver, 0, 0, null);
+			Jogo.gameOver = true;
 		}
 	}
 	
@@ -90,11 +105,12 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 			synchronized (_thread.getSurfaceHolder()) {
 				Tiro tiro = new Tiro(_tiroBitmap, personagens.getNaveJogador());
 				tiro.getCoordinates().setX(personagens.getNaveJogador().getCoordinates().getX()
-						+ (personagens.getNaveJogador().getCoordinates().getX()/2) );
-				tiro.getCoordinates().setY(personagens.getNaveJogador().getCoordinates().getY());
+						+ personagens.getNaveJogador().getGraphic().getWidth()/2);
+				tiro.getCoordinates().setY(personagens.getNaveJogador().getCoordinates().getY()
+						+ personagens.getNaveJogador().getGraphic().getHeight()/2);
 				tiro.getSpeed().setY(5);
 				personagens.getTiros().add(tiro);
-				Jogo.sons.tocarTiro();
+				MainMenu.som.tocarTiro();
 			}
 		}
 		return true;
@@ -135,8 +151,10 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 			}
 		}
 		
-		personagens.getNaveJogador().getCoordinates().setX(_movimentoX);
-		personagens.getNaveJogador().getCoordinates().setY(_movimentoY);
+		personagens.getNaveJogador().getCoordinates().setX(personagens.getNaveJogador().getCoordinates().getX() 
+				+ (_movimentoX * (float) (_sensibilidade + 1)));
+		personagens.getNaveJogador().getCoordinates().setY(personagens.getNaveJogador().getCoordinates().getY() 
+				+ (_movimentoY * (float) (_sensibilidade + 1)));
 		
 		for (Tiro tiro : personagens.getTiros()) {
 			tiro.getCoordinates().setY(tiro.getCoordinates().getY() - tiro.getSpeed().getY());
@@ -166,11 +184,11 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 		colisao.checaColisaoDoPlayerComInimigos(personagens.getNaveJogador(), personagens.getInimigo());
 		colisao.checaColisaoDosTirosComInimigos(personagens.getInimigo(), personagens.getTiros());
 	}
-	public float setMovimentoX(float movimentoX){
-		return _movimentoX += movimentoX;
+	public void setMovimentoX(float movimentoX){
+		_movimentoX = movimentoX;
 	}
 	
-	public float setMovimentoY(float movimentoY){
-		return _movimentoY += movimentoY;
+	public void setMovimentoY(float movimentoY){
+		_movimentoY = movimentoY;
 	}
 }

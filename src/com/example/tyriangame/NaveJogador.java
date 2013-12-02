@@ -11,6 +11,8 @@ public class NaveJogador implements GameObject {
 	public NaveJogador(Bitmap bitmap) {
 	    _bitmap = bitmap;
 	    _coordinates = new Coordinates();
+	    _coordinates.setX(200);
+	    _coordinates.setY(600);
 	    _vida = 3;
 	}
 	

@@ -14,7 +14,7 @@ public class Colisao{
 
 			if(isColidindoDoisCirculos(player, inimigo))
 			{
-				Jogo.sons.tocarExplosao();
+				MainMenu.som.tocarExplosao();
 				iInimigos.remove(); // Remove o inimigo que colidiu
 				player.diminuirVida();
 			}
@@ -33,9 +33,15 @@ public class Colisao{
 			{
 				if(isColidindoDoisCirculos(inimigo, iTiros.next()))
 				{
-					Jogo.sons.tocarExplosao();
-					iInimigos.remove();
-					iTiros.remove();
+					if(inimigo.getVida() == 0) {
+						Jogo.pontos += 10;
+						MainMenu.som.tocarExplosao();
+						iInimigos.remove();
+						iTiros.remove();
+					}else if(inimigo.getVida() > 0){
+						inimigo.diminuirVida();
+						iTiros.remove();
+					}
 					break;
 				}
 			}
@@ -45,8 +51,8 @@ public class Colisao{
 	static public Boolean isColidindoDoisCirculos(GameObject a, GameObject b)
 	{
 		// Calcula a hipotenusa
-		float distX = a.getCoordinates().getX() - b.getCoordinates().getX();
-		float distY = a.getCoordinates().getY() - b.getCoordinates().getY();
+		float distX = (a.getCoordinates().getX() + a.getGraphic().getWidth()/2) - (b.getCoordinates().getX() + b.getGraphic().getWidth()/2);
+		float distY = (a.getCoordinates().getY() + a.getGraphic().getHeight()/2) - (b.getCoordinates().getY() + b.getGraphic().getHeight()/2);
 		double distHip = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
 		
 		// Pega a menor dimensão das imagens
