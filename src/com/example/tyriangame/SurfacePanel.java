@@ -1,8 +1,7 @@
 package com.example.tyriangame;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,9 +9,6 @@ import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
 public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback {
 	private SurfaceThread _thread;
@@ -50,6 +46,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 				R.drawable.gameover);
 	}
 	
+	@SuppressLint("DrawAllocation")
 	@Override
 	public void onDraw(Canvas canvas) {
 		canvas.drawColor(Color.BLACK);
@@ -97,6 +94,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 				tiro.getCoordinates().setY(personagens.getNaveJogador().getCoordinates().getY());
 				tiro.getSpeed().setY(5);
 				personagens.getTiros().add(tiro);
+				Jogo.sons.tocarTiro();
 			}
 		}
 		return true;

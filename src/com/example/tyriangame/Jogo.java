@@ -7,7 +7,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Window;
-import android.widget.Button;
 
 public class Jogo extends Activity implements SensorEventListener{
 	private SurfacePanel panel;
@@ -16,12 +15,16 @@ public class Jogo extends Activity implements SensorEventListener{
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
 	
+    static Sons sons;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
 		mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        
+        sons = new Sons(this);
+        sons.tocarMusicaDoJogo();
 		
         panel = new SurfacePanel(this);
 		setContentView(panel);
@@ -34,11 +37,13 @@ public class Jogo extends Activity implements SensorEventListener{
 	
 	protected void onResume() {
         super.onResume();
+        sons.tocarMusicaDoJogo();
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 	
 	protected void onPause() {
         super.onPause();
+        sons.pausarMusicaDoJogo();
         mSensorManager.unregisterListener(this);
     }
 

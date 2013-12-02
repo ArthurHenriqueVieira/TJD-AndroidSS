@@ -14,6 +14,7 @@ public class Colisao{
 
 			if(isColidindoDoisCirculos(player, inimigo))
 			{
+				Jogo.sons.tocarExplosao();
 				iInimigos.remove(); // Remove o inimigo que colidiu
 				player.diminuirVida();
 			}
@@ -32,7 +33,7 @@ public class Colisao{
 			{
 				if(isColidindoDoisCirculos(inimigo, iTiros.next()))
 				{
-					//som.tocarExplosao();
+					Jogo.sons.tocarExplosao();
 					iInimigos.remove();
 					iTiros.remove();
 					break;

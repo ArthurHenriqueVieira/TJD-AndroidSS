@@ -1,7 +1,5 @@
 package com.example.tyriangame;
 
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +12,10 @@ import android.view.Menu;
 import android.widget.Button;
 
 public class MainMenu extends Activity {
+	
+	//Muda a velocidade do acelerometro
+	static float velocidadeAcele;
+	
 	//Cria os botoes.
 	Button btn_sair;
 	Button btn_ajuda;
@@ -21,8 +23,7 @@ public class MainMenu extends Activity {
 	Button btn_configuracoes;
 	Button btn_jogo;
 	
-	//Cria um media player
-	MediaPlayer mMediaPlayer;
+	static Sons som;
 	
 	//Cria um nivel de dificuldade
 	public static float dificuldade;
@@ -42,11 +43,8 @@ public class MainMenu extends Activity {
 		contexto = this;
 		
 		//Cria um media Player
-		mMediaPlayer = new MediaPlayer();
-		mMediaPlayer = MediaPlayer.create(this, R.raw.musica_fundo);
-		mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-		mMediaPlayer.setLooping(true);
-		mMediaPlayer.start();
+		som = new Sons(this);
+		som.tocarMusicaDeFundo();
 		
 		if(btn_ajuda != null) {
 			
@@ -153,12 +151,12 @@ public class MainMenu extends Activity {
 	public void onResume() {
 		super.onResume();
 		
-		mMediaPlayer.start();
+		som.tocarMusicaDeFundo();
 	}
 	
 	public void onPause(){
 		super.onPause();
 		
-		mMediaPlayer.pause();
+		som.pausarMusicaDeFundo();
 	}
 }
