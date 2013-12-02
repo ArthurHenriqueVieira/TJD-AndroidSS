@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -9,7 +9,57 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:id="@+id/gameover"
-        android:src="@drawable/agua"
-        />
+        android:src="@drawable/agua" />
 
-</LinearLayout>
+    <SeekBar
+        android:id="@+id/seek_BarSom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="125dp"
+        android:max="100"
+        android:progress="20" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="CONFIGURAÇÕES"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <SeekBar
+        android:id="@+id/seek_BarAcele"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/seek_BarSom"
+        android:layout_marginTop="132dp"
+        android:max="100"
+        android:progress="20" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/seek_BarAcele"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="42dp"
+        android:text="Sencibilidade do Acelerômetro"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/seek_BarSom"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="37dp"
+        android:layout_marginLeft="19dp"
+        android:text="Mudar Audio"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>
