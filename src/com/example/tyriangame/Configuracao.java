@@ -10,7 +10,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 public class Configuracao extends Activity {
 	//cria os seeks bar
 	SeekBar seekBarSom;
-	SeekBar seekBarAcele;
+	static SeekBar seekBarAcele;
 	
 	private AudioManager audioManager;
 	

@@ -39,7 +39,7 @@
         android:layout_below="@+id/seek_BarSom"
         android:layout_marginTop="132dp"
         android:max="100"
-        android:progress="20" />
+        android:progress="0" />
 
     <TextView
         android:id="@+id/textView2"

@@ -38,7 +38,8 @@ public class Jogo extends Activity implements SensorEventListener{
 	protected void onResume() {
         super.onResume();
         sons.tocarMusicaDoJogo();
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mAccelerometer,
+        		SensorManager.SENSOR_DELAY_NORMAL);
     }
 	
 	protected void onPause() {
@@ -51,8 +52,10 @@ public class Jogo extends Activity implements SensorEventListener{
 	public void onSensorChanged(SensorEvent event) {
 		//Faz a nave mover usando o acelerometro
 		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-				panel.setMovimentoX(event.values[0] * -1);
-                panel.setMovimentoY(event.values[1]);
+				panel.setMovimentoX((event.values[0] * -1) * Configuracao
+						.seekBarAcele.getProgress());
+                panel.setMovimentoY((event.values[1]) * Configuracao
+						.seekBarAcele.getProgress());
 		}
 	}
 }
